@@ -145,9 +145,17 @@ flowchart TD
 
     subgraph Repo["engineering-docs (GHEC)"]
         MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems]
+        DIAGRAMS[Mermaid diagrams\nin Markdown code blocks]
         TMPL[Templates]
         CLAUDE_MD[CLAUDE.md]
         CO[CODEOWNERS]
+    end
+
+    subgraph Mermaid["Diagramming · Mermaid"]
+        MERMAID_SRC[Mermaid code blocks\nin Markdown]
+        RENDER_HOOK[Hugo render hook\nrender-codeblock-mermaid.html]
+        MERMAID_JS[Mermaid JS\nloaded via extend_head.html]
+        SVG[SVG diagram\nrendered in browser]
     end
 
     subgraph CI["GitHub Actions"]
@@ -175,6 +183,11 @@ flowchart TD
     PAGEFIND --> DEPLOY
     DEPLOY --> SITE
     SITE --> SEARCH
+    DIAGRAMS --> MERMAID_SRC
+    MERMAID_SRC --> RENDER_HOOK
+    RENDER_HOOK --> MERMAID_JS
+    MERMAID_JS --> SVG
+    SVG -->|rendered on| SITE
     E3 -->|browse + search| SITE
     E4 --> CC
     CC --> GLOBAL_MD
