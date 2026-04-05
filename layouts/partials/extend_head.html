@@ -1,5 +1,6 @@
 {{ if .Store.Get "hasMermaid" }}
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
 <script>
   mermaid.initialize({
     startOnLoad: true,
@@ -19,13 +20,65 @@
       nodeTextColor: '#ffffff',
     }
   });
+
+  function initPanZoom() {
+    document.querySelectorAll('.mermaid svg').forEach(function (svg) {
+      if (svg.dataset.panZoom) return;
+      svg.dataset.panZoom = 'true';
+      svg.style.width = '100%';
+      svg.style.height = '100%';
+
+      var pz = svgPanZoom(svg, {
+        zoomEnabled: true,
+        controlIconsEnabled: false,
+        fit: true,
+        center: true,
+        minZoom: 0.3,
+        maxZoom: 10,
+      });
+
+      // Inject custom controls into the wrapper div
+      var wrapper = svg.closest('.mermaid');
+      var controls = document.createElement('div');
+      controls.className = 'pz-controls';
+      controls.innerHTML =
+        '<button title="Zoom in" onclick="this.closest(\'.mermaid\').querySelector(\'svg\').__pz.zoomIn()">+</button>' +
+        '<button title="Reset" onclick="this.closest(\'.mermaid\').querySelector(\'svg\').__pz.resetZoom();this.closest(\'.mermaid\').querySelector(\'svg\').__pz.resetPan()">⟳</button>' +
+        '<button title="Zoom out" onclick="this.closest(\'.mermaid\').querySelector(\'svg\').__pz.zoomOut()">−</button>';
+      wrapper.appendChild(controls);
+      svg.__pz = pz;
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeName === 'svg') initPanZoom();
+        });
+      });
+    });
+    document.querySelectorAll('.mermaid').forEach(function (el) {
+      observer.observe(el, { childList: true });
+    });
+  });
 </script>
 <style>
   .mermaid {
+    position: relative;
     border: 1px solid #444;
     border-radius: 8px;
     padding: 1.5rem;
-    overflow-x: auto;
+    overflow: hidden;
+    height: 520px;
+    cursor: grab;
+  }
+  .mermaid:active {
+    cursor: grabbing;
+  }
+  .mermaid svg {
+    width: 100%;
+    height: 100%;
   }
   .mermaid .flowchart-link {
     stroke-width: 2.5px !important;
@@ -39,6 +92,35 @@
     font-weight: 700 !important;
     display: block;
     margin-bottom: 8px;
+  }
+  .pz-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 10;
+  }
+  .pz-controls button {
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #888;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .pz-controls button:hover {
+    color: #00d4ff;
+    border-color: #00d4ff;
   }
 </style>
 {{ end }}
