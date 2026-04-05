@@ -10,7 +10,7 @@ tags: ["platform", "documentation", "hugo", "mcp"]
 | **Status** | Proposed |
 | **Date** | April 2026 |
 | **Author** | Rich — VP Engineering |
-| **Reviewers** | Platform Engineering Team |
+| **Reviewers** | Platform |
 
 ---
 
