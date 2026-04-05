@@ -38,7 +38,7 @@ an operational procedure must either guess or ask the engineer — it cannot loo
 We will establish a docs-as-code platform built on four integrated components:
 
 **1. Canonical Docs Repository (GHEC)**
-A dedicated GitHub repository (`netwealth/engineering-docs`) in GitHub Enterprise Cloud
+A dedicated GitHub repository (`company-name/engineering-docs`) in GitHub Enterprise Cloud
 becomes the single source of truth for all engineering knowledge. All documentation is
 written in Markdown and lives under version control. The repository is structured around
 five content areas: runbooks, architecture decision records (ADRs), onboarding guides,
@@ -251,7 +251,7 @@ flowchart LR
 
 ## Access control
 
-The Hugo site is deployed to GitHub Pages and must be accessible only to Netwealth
+The Hugo site is deployed to GitHub Pages and must be accessible only to [company-name]
 engineers — not the public internet.
 
 ### On GitHub Enterprise Cloud (production)
@@ -262,7 +262,7 @@ members of the GitHub organisation via a single setting:
 **Settings → Pages → Access control → Private**
 
 With this enabled, any engineer who is not an authenticated member of the
-`netwealth` GitHub organisation will receive a 404 when attempting to access the site.
+`company-name` GitHub organisation will receive a 404 when attempting to access the site.
 No changes to the Hugo build, the Actions workflow, or the repository structure are
 required. This is the mechanism that will be used when the platform is deployed to GHEC.
 
