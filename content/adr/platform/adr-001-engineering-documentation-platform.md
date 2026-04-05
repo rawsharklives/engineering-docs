@@ -129,9 +129,11 @@ engineering-docs/
 │       ├── work-mode.md         ← prompt fetched by /work in service repos
 │       └── setup-docs.md        ← prompt fetched by /setup-docs in service repos
 ├── content/
-│   ├── runbooks/
 │   ├── adr/
-│   │   └── adr-001-*.md
+│   │   ├── platform/            ← platform engineering ADRs
+│   │   ├── rad-sre/             ← RAD & SRE ADRs
+│   │   └── data/                ← data engineering ADRs
+│   ├── runbooks/
 │   ├── onboarding/
 │   ├── postmortems/
 │   ├── standards/
@@ -141,8 +143,7 @@ engineering-docs/
 │       │   └── _index.md        ← overview, architecture, owners, SLOs
 │       └── <service-name>/
 │           ├── _index.md        ← overview, architecture, owners, SLOs
-│           ├── runbook-*.md     ← service-specific runbooks
-│           └── adr-*.md         ← service-scoped decisions (if applicable)
+│           └── runbook-*.md     ← service-specific runbooks
 ├── templates/
 │   ├── adr-template.md
 │   ├── postmortem-template.md
