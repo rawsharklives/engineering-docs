@@ -1,9 +1,9 @@
 ---
-title: "Root Cause Analyses"
+title: "Root Cause Analysis"
 description: "Blameless incident retrospectives identifying root causes, contributing factors, and action items."
 ---
 
-Root Cause Analyses (RCAs) are blameless. Their purpose is to understand what happened,
+Root Cause Analysis (RCAs) are blameless. Their purpose is to understand what happened,
 why it happened, and what systemic changes will prevent recurrence. They are not for
 assigning fault.
 

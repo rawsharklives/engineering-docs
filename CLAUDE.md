@@ -11,7 +11,7 @@ static wiki via Hugo + GitHub Pages.
 | Runbooks | `content/runbooks/` | Step-by-step operational procedures |
 | ADRs | `content/adr/` | Architecture Decision Records |
 | Onboarding | `content/onboarding/` | Guides for new engineers |
-| RCAs | `content/rca/` | Root Cause Analyses |
+| RCAs | `content/rca/` | Root Cause Analysis |
 | Standards | `content/standards/` | Engineering standards and conventions |
 
 Templates for each document type are in `templates/`.
