@@ -46,6 +46,11 @@ paginate = 20
     url = "/postmortems/"
     weight = 40
   [[menu.main]]
+    identifier = "services"
+    name = "Services"
+    url = "/services/"
+    weight = 45
+  [[menu.main]]
     identifier = "standards"
     name = "Standards"
     url = "/standards/"
