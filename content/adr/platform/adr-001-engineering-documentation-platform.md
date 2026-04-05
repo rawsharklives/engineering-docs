@@ -44,7 +44,7 @@ A dedicated GitHub repository (`company-name/engineering-docs`) in GitHub Enterp
 becomes the single source of truth for all engineering knowledge. All documentation is
 written in Markdown and lives under version control. The repository is structured around
 five content areas: runbooks, architecture decision records (ADRs), onboarding guides,
-postmortems, and service documentation. Templates are provided for each type and enforced
+root cause analyses (RCAs), and service documentation. Templates are provided for each type and enforced
 via CODEOWNERS and PR review.
 
 Service documentation — including architecture overviews, dependency maps, owner
@@ -135,7 +135,7 @@ engineering-docs/
 │   │   └── data/                ← data engineering ADRs
 │   ├── runbooks/
 │   ├── onboarding/
-│   ├── postmortems/
+│   ├── rca/
 │   ├── standards/
 │   ├── search.md                ← search page
 │   └── services/
@@ -146,7 +146,7 @@ engineering-docs/
 │           └── runbook-*.md     ← service-specific runbooks
 ├── templates/
 │   ├── adr-template.md
-│   ├── postmortem-template.md
+│   ├── rca-template.md
 │   ├── runbook-template.md
 │   ├── service-template.md
 │   └── claude-commands/
@@ -304,7 +304,7 @@ flowchart LR
     end
 
     subgraph Repo["engineering-docs · GHEC"]
-        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems\nMermaid diagrams]
+        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · RCAs\nMermaid diagrams]
         TMPL[Templates]
         CLAUDE_MD[CLAUDE.md]
         CO[CODEOWNERS]

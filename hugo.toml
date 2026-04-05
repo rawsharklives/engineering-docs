@@ -18,7 +18,7 @@ paginate = 20
 
 [params.homeInfoParams]
   Title = "Engineering Docs"
-  Content = "Canonical source of truth for runbooks, ADRs, onboarding guides, and postmortems."
+  Content = "Canonical source of truth for runbooks, ADRs, onboarding guides, and root cause analyses."
 
 [[params.socialIcons]]
   name = "github"
@@ -41,9 +41,9 @@ paginate = 20
     url = "/onboarding/"
     weight = 30
   [[menu.main]]
-    identifier = "postmortems"
-    name = "Postmortems"
-    url = "/postmortems/"
+    identifier = "rca"
+    name = "RCAs"
+    url = "/rca/"
     weight = 40
   [[menu.main]]
     identifier = "services"

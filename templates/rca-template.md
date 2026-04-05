@@ -1,4 +1,4 @@
-# Postmortem: Title
+# RCA: Title
 
 **Date:** YYYY-MM-DD
 **Severity:** P1 / P2 / P3
@@ -24,9 +24,13 @@ All times in UTC.
 | HH:MM | Mitigation applied |
 | HH:MM | Incident resolved |
 
-## Root Cause
+## Root Causes
 
-What was the underlying technical cause of the incident?
+Incidents rarely have a single root cause. List all contributing root causes — technical,
+process, and human factors. Do not stop at the first explanation found.
+
+- Root cause one
+- Root cause two
 
 ## Contributing Factors
 

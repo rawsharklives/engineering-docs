@@ -11,7 +11,7 @@ static wiki via Hugo + GitHub Pages.
 | Runbooks | `content/runbooks/` | Step-by-step operational procedures |
 | ADRs | `content/adr/` | Architecture Decision Records |
 | Onboarding | `content/onboarding/` | Guides for new engineers |
-| Postmortems | `content/postmortems/` | Incident retrospectives |
+| RCAs | `content/rca/` | Root Cause Analyses |
 | Standards | `content/standards/` | Engineering standards and conventions |
 
 Templates for each document type are in `templates/`.
@@ -26,7 +26,7 @@ check whether a runbook, ADR, or guide already exists before writing a new one.
 - Runbooks: `content/runbooks/`
 - ADRs: `content/adr/` — numbered sequentially, e.g. `adr-001-*.md`
 - Onboarding: `content/onboarding/`
-- Postmortems: `content/postmortems/`
+- RCAs: `content/rca/`
 
 **Creating new documents:**
 Copy the appropriate template from `templates/` and fill it in. Follow the naming
@@ -36,7 +36,7 @@ conventions below.
 
 - Runbooks: `content/runbooks/<service>-<action>.md` (e.g. `payments-rollback.md`)
 - ADRs: `content/adr/adr-<NNN>-<slug>.md` (e.g. `adr-002-api-gateway.md`)
-- Postmortems: `content/postmortems/<YYYY-MM-DD>-<slug>.md`
+- RCAs: `content/rca/<YYYY-MM-DD>-<slug>.md`
 - Onboarding: `content/onboarding/<topic>.md`
 
 ## Proposing changes
