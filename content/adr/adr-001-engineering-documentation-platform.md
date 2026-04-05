@@ -135,60 +135,45 @@ engineering-docs/
 ## Platform overview
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph Engineers["Engineers"]
-        E1[Engineer writes\nMarkdown in VS Code]
-        E2[Engineer opens\nPR on GitHub]
-        E3[Engineer browses\nHugo wiki]
-        E4[Engineer asks\nClaude Code]
+        E1[Write Markdown\nin VS Code]
+        E2[Open PR\non GitHub]
+        E3[Browse\nHugo wiki]
+        E4[Ask\nClaude Code]
     end
 
-    subgraph Repo["engineering-docs (GHEC)"]
-        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems]
-        DIAGRAMS[Mermaid diagrams\nin Markdown code blocks]
+    subgraph Repo["engineering-docs · GHEC"]
+        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems\nMermaid diagrams]
         TMPL[Templates]
         CLAUDE_MD[CLAUDE.md]
         CO[CODEOWNERS]
     end
 
-    subgraph Mermaid["Diagramming · Mermaid"]
-        MERMAID_SRC[Mermaid code blocks\nin Markdown]
-        RENDER_HOOK[Hugo render hook\nrender-codeblock-mermaid.html]
-        MERMAID_JS[Mermaid JS\nloaded via extend_head.html]
-        SVG[SVG diagram\nrendered in browser]
-    end
-
     subgraph CI["GitHub Actions"]
-        PR_CHECK[PR review\nenforced by CODEOWNERS]
-        BUILD[Hugo build\nhuge --minify]
-        PAGEFIND[Pagefind index\nfuture]
-        DEPLOY[Deploy to\ngh-pages branch]
+        PR_CHECK[PR review\nCODEOWNERS]
+        BUILD[Hugo build\n--minify]
+        DEPLOY[Deploy to\ngh-pages]
     end
 
     subgraph Pages["GitHub Pages"]
-        SITE[Static HTML site\nrawsharklives.github.io/engineering-docs]
-        SEARCH[Search index\nindex.json · Fuse.js]
+        SITE[Static wiki\nHugo + PaperMod]
+        SEARCH[Search\nFuse.js · index.json]
     end
 
-    subgraph AI["AI layer"]
-        MCP[GitHub MCP Server\nread · search · PR]
-        CC[Claude Code\nin any service repo]
-        GLOBAL_MD[~/.claude/CLAUDE.md\nper engineer]
+    subgraph AI["AI Layer"]
+        CC[Claude Code]
+        GLOBAL_MD[~/.claude/CLAUDE.md]
+        MCP[GitHub MCP Server]
     end
 
     E1 -->|git push| E2
-    E2 -->|merge to main| PR_CHECK
+    E2 -->|merge to main| Repo
+    Repo --> PR_CHECK
     PR_CHECK --> BUILD
-    BUILD --> PAGEFIND
-    PAGEFIND --> DEPLOY
-    DEPLOY --> SITE
-    SITE --> SEARCH
-    DIAGRAMS --> MERMAID_SRC
-    MERMAID_SRC --> RENDER_HOOK
-    RENDER_HOOK --> MERMAID_JS
-    MERMAID_JS --> SVG
-    SVG -->|rendered on| SITE
-    E3 -->|browse + search| SITE
+    BUILD --> DEPLOY
+    DEPLOY --> Pages
+    E3 -->|browse + search| Pages
     E4 --> CC
     CC --> GLOBAL_MD
     CC --> MCP
