@@ -1,7 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Mcp on Engineering Docs</title><link>https://rawsharklives.github.io/engineering-docs/tags/mcp/</link><description>Recent content in Mcp on Engineering Docs</description><generator>Hugo</generator><language>en-gb</language><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://rawsharklives.github.io/engineering-docs/tags/mcp/index.xml" rel="self" type="application/rss+xml"/><item><title>ADR-001: Engineering Documentation Platform</title><link>https://rawsharklives.github.io/engineering-docs/adr/adr-001-engineering-documentation-platform/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/adr-001-engineering-documentation-platform/</guid><description>&lt;p&gt;&lt;strong&gt;Status:&lt;/strong&gt; Proposed
-&lt;strong&gt;Date:&lt;/strong&gt; April 2026
-&lt;strong&gt;Author:&lt;/strong&gt; Rich — VP Engineering
-&lt;strong&gt;Reviewers:&lt;/strong&gt; Platform Engineering Team&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Mcp on Engineering Docs</title><link>https://rawsharklives.github.io/engineering-docs/tags/mcp/</link><description>Recent content in Mcp on Engineering Docs</description><generator>Hugo</generator><language>en-gb</language><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://rawsharklives.github.io/engineering-docs/tags/mcp/index.xml" rel="self" type="application/rss+xml"/><item><title>ADR-001: Engineering Documentation Platform</title><link>https://rawsharklives.github.io/engineering-docs/adr/adr-001-engineering-documentation-platform/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/adr-001-engineering-documentation-platform/</guid><description>&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Status&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Proposed&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;April 2026&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Author&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Rich — VP Engineering&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Reviewers&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Platform Engineering Team&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;hr&gt;
 &lt;h2 id="context"&gt;Context&lt;/h2&gt;
 &lt;p&gt;Our current engineering knowledge is fragmented and unreliable. Documentation is spread
