@@ -1,0 +1,55 @@
+baseURL = "https://rawsharklives.github.io/engineering-docs/"
+languageCode = "en-gb"
+title = "Engineering Docs"
+theme = "PaperMod"
+paginate = 20
+
+[params]
+  description = "Canonical engineering knowledge base"
+  author = "Platform Engineering"
+  ShowReadingTime = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  disableSpecial1stPost = true
+  displayFullLangName = true
+  defaultTheme = "auto"
+
+[params.homeInfoParams]
+  Title = "Engineering Docs"
+  Content = "Canonical source of truth for runbooks, ADRs, onboarding guides, and postmortems."
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/rawsharklives/engineering-docs"
+
+[menu]
+  [[menu.main]]
+    identifier = "runbooks"
+    name = "Runbooks"
+    url = "/runbooks/"
+    weight = 10
+  [[menu.main]]
+    identifier = "adr"
+    name = "ADRs"
+    url = "/adr/"
+    weight = 20
+  [[menu.main]]
+    identifier = "onboarding"
+    name = "Onboarding"
+    url = "/onboarding/"
+    weight = 30
+  [[menu.main]]
+    identifier = "postmortems"
+    name = "Postmortems"
+    url = "/postmortems/"
+    weight = 40
+  [[menu.main]]
+    identifier = "standards"
+    name = "Standards"
+    url = "/standards/"
+    weight = 50
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
