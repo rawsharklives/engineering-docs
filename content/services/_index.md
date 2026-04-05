@@ -3,7 +3,7 @@ title: "Services"
 description: "Architecture, ownership, dependencies, and operational runbooks for every service."
 ---
 
-This section is the canonical reference for all services in the Netwealth engineering
+This section is the canonical reference for all services in the company engineering
 platform. Each service page covers architecture, owners, dependencies, SLOs, and
 service-specific runbooks.
 

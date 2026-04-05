@@ -2,7 +2,7 @@
 
 **Team:** Owning team name
 **Owner:** @github-handle
-**Repo:** [netwealth/service-name](https://github.com/netwealth/service-name)
+**Repo:** [company-name/service-name](https://github.com/company-name/service-name)
 **Last reviewed:** YYYY-MM-DD
 
 ---
@@ -58,4 +58,4 @@ Link to any relevant ADRs:
 
 > Local development setup, test commands, and build instructions live in the service
 > repo's `CLAUDE.md` and `README.md`:
-> [netwealth/service-name](https://github.com/netwealth/service-name)
+> [company-name/service-name](https://github.com/company-name/service-name)

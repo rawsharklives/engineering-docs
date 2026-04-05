@@ -1,6 +1,6 @@
 # Engineering Docs — Claude Code Context
 
-This repository is the canonical source of truth for engineering knowledge at Netwealth.
+This repository is the canonical source of truth for engineering knowledge at [company-name].
 All documentation is written in Markdown, version-controlled in Git, and rendered as a
 static wiki via Hugo + GitHub Pages.
 
