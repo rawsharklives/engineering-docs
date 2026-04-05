@@ -70,6 +70,26 @@ This applies globally across all repos without requiring per-repo configuration.
 Service repositories contain a minimal `CLAUDE.md` covering only local setup and test
 commands, with a pointer to their service page in engineering-docs for all other context.
 
+**5. Diagramming (Mermaid)**
+Architecture diagrams, flow diagrams, and dependency maps are written as Mermaid code
+blocks directly in Markdown. Hugo renders them as interactive SVG diagrams in the browser
+via a render hook and the Mermaid JS library — no external diagramming tool, no image
+files to maintain, and no broken diagrams when services change.
+
+Diagrams live alongside the documentation they describe. A service architecture diagram
+lives in `content/services/<service>/_index.md`. A platform overview lives in the
+relevant ADR. Because diagrams are code, they go through the same PR review process as
+all other documentation changes.
+
+Mermaid supports flowcharts, sequence diagrams, entity-relationship diagrams, Gantt
+charts, and more. For the majority of engineering documentation needs — service
+architecture, deployment flows, incident timelines, data models — Mermaid covers the
+requirement without requiring engineers to context-switch into a separate tool.
+
+Where richer or more complex diagrams are needed (e.g. existing Miro boards), SVG or PNG
+exports can be placed in `static/images/` and referenced from any page. Mermaid is the
+default; static exports are the fallback.
+
 **4. MCP Integration (GitHub MCP Server)**
 Anthropic's GitHub MCP server is configured to give Claude Code programmatic access to
 `engineering-docs`. This enables Claude to search, read, and propose changes to
@@ -102,6 +122,11 @@ engineering-docs/
 │   ├── postmortem-template.md
 │   └── service-template.md
 ├── hugo.toml
+├── layouts/
+│   ├── _default/_markup/
+│   │   └── render-codeblock-mermaid.html  ← Mermaid render hook
+│   └── partials/
+│       └── extend_head.html               ← loads Mermaid JS conditionally
 └── .github/
     └── workflows/
         └── deploy.yml
@@ -176,6 +201,9 @@ flowchart TD
   Actions, and GitHub Pages are tools we already have.
 - **Portability and longevity.** Plain Markdown in Git is readable by any tool, any
   editor, and any future platform.
+- **Diagrams as code.** Mermaid diagrams live in the same repo as the documentation they
+  describe, go through PR review, and render automatically on the Hugo site. No external
+  diagramming tool or stale image exports to maintain.
 
 ### Negative
 
@@ -205,6 +233,7 @@ flowchart TD
 - Define a process for keeping service docs current (ownership, review cadence)
 - Update each service repo's `CLAUDE.md` to be lightweight and point to engineering-docs
 - Evaluate onboarding editor tooling for non-Git contributors
+- Add Mermaid diagrams to service pages as they are created or migrated
 
 ---
 
