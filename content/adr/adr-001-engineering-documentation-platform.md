@@ -154,3 +154,68 @@ engineering-docs/
 - Define a process for keeping service docs current (ownership, review cadence)
 - Update each service repo's `CLAUDE.md` to be lightweight and point to engineering-docs
 - Evaluate onboarding editor tooling for non-Git contributors
+
+---
+
+## Scaling and future-proofing
+
+### Search at scale
+
+The initial implementation uses PaperMod's built-in search, which is powered by
+[Fuse.js](https://www.fusejs.io/) — a client-side fuzzy search library. On build, Hugo
+generates an `index.json` at the site root containing the title, summary, tags, and
+content of every page. The browser downloads this file in full and searches it in-memory.
+
+This works well at low page counts but has two limitations as the docs store grows:
+
+- **Index size.** At several hundred dense pages, `index.json` can reach 5–20MB. Every
+  engineer visiting the search page downloads the entire index before the first result
+  appears.
+- **Search speed.** Fuse.js searches the full in-memory index on every keystroke. At
+  thousands of pages this becomes perceptibly slow.
+
+### Recommended next step: Pagefind
+
+[Pagefind](https://pagefind.app/) is a static search library designed specifically for
+sites of this kind. Rather than generating a single large index, Pagefind runs a
+post-build indexing step that produces a set of small, chunked binary index files. The
+browser only downloads the chunks relevant to the current query — typically a few
+kilobytes — regardless of how large the total docs store is.
+
+**Why Pagefind is the right next step:**
+
+- Scales to tens of thousands of pages with no perceptible degradation
+- Entirely static — no external service, no API key, no ongoing cost
+- Works within the existing Hugo + GitHub Actions + GitHub Pages stack
+- Integration requires adding a single post-build step to `deploy.yml` and a search page
+  template; no changes to content or the Hugo theme
+- Full-text search across all content, not just titles and summaries
+
+**Integration approach:**
+
+Add a Pagefind indexing step to `.github/workflows/deploy.yml` after the Hugo build:
+
+```yaml
+- name: Index with Pagefind
+  run: npx pagefind --site public
+```
+
+Pagefind writes its index into `public/pagefind/`, which is then deployed to Pages
+alongside the rest of the site. A minimal search UI is served from the same directory.
+
+**Migration path:**
+
+Pagefind can replace or complement the existing Fuse.js search. The simplest approach
+is to replace the PaperMod search page with a Pagefind UI once the proof of concept
+validates the quality and performance of results.
+
+**When to migrate:**
+
+The Fuse.js approach is adequate while the docs store is small. The trigger for switching
+should be either of:
+
+- `index.json` exceeds ~2MB (check at `https://<pages-url>/index.json`)
+- Engineers report slow or degraded search experience
+
+A proof of concept with realistic dummy data is planned to validate Pagefind's result
+quality and confirm the integration approach before committing to the migration.
