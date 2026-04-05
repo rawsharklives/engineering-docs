@@ -14,7 +14,7 @@ enableGitInfo = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   disableSpecial1stPost = true
-  hideFromHome = true
+  mainSections = []
   displayFullLangName = true
   defaultTheme = "auto"
 
