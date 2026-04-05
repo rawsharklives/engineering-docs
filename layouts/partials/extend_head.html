@@ -1,0 +1,38 @@
+{{ if .Store.Get "hasMermaid" }}
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      background: '#000000',
+      primaryColor: '#2a2a2a',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#888888',
+      lineColor: '#00d4ff',
+      secondaryColor: '#1a1a1a',
+      tertiaryColor: '#1a1a1a',
+      edgeLabelBackground: '#000000',
+      clusterBkg: '#1a1a1a',
+      clusterBorder: '#888888',
+      titleColor: '#bf7fff',
+      nodeTextColor: '#ffffff',
+    }
+  });
+</script>
+<style>
+  .mermaid {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+  }
+  .mermaid .cluster-label span,
+  .mermaid .cluster-label p {
+    color: #bf7fff !important;
+    font-weight: 700 !important;
+    display: block;
+    margin-bottom: 8px;
+  }
+</style>
+{{ end }}
