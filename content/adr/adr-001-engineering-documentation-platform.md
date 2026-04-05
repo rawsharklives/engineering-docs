@@ -86,6 +86,20 @@ charts, and more. For the majority of engineering documentation needs — servic
 architecture, deployment flows, incident timelines, data models — Mermaid covers the
 requirement without requiring engineers to context-switch into a separate tool.
 
+**Diagram interaction**
+Complex architecture diagrams present a readability challenge when rendered at page width
+— particularly multi-service or platform-level diagrams with many nodes and connections.
+To address this, diagrams in the Hugo site are rendered with pan and zoom interaction via
+the `svg-pan-zoom` library. Engineers can scroll to zoom into any part of a diagram and
+drag to pan, without leaving the page. Lightweight custom controls (zoom in, zoom out,
+reset) are overlaid in the bottom-right corner of each diagram.
+
+This is implemented via a Hugo render hook (`layouts/_default/_markup/render-codeblock-mermaid.html`)
+that wraps each Mermaid code block in a fixed-height container, and a head partial
+(`layouts/partials/extend_head.html`) that initialises Mermaid and attaches pan-zoom
+behaviour to each rendered SVG via a `MutationObserver`. The Mermaid JS and svg-pan-zoom
+library are loaded only on pages that contain diagrams.
+
 Where richer or more complex diagrams are needed (e.g. existing Miro boards), SVG or PNG
 exports can be placed in `static/images/` and referenced from any page. Mermaid is the
 default; static exports are the fallback.
