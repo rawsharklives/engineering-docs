@@ -120,23 +120,38 @@ configuration gives Claude access to the full picture.
 ```
 engineering-docs/
 ├── CLAUDE.md
+├── CODEOWNERS
+├── .claude/
+│   ├── commands/
+│   │   └── setup-docs-local.md  ← /setup-docs-local command
+│   └── prompts/
+│       ├── docs-mode.md         ← prompt fetched by /docs in service repos
+│       ├── work-mode.md         ← prompt fetched by /work in service repos
+│       └── setup-docs.md        ← prompt fetched by /setup-docs in service repos
 ├── content/
 │   ├── runbooks/
 │   ├── adr/
+│   │   └── adr-001-*.md
 │   ├── onboarding/
 │   ├── postmortems/
 │   ├── standards/
+│   ├── search.md                ← search page
 │   └── services/
-│       ├── <service-name>/
-│       │   ├── _index.md        ← overview, architecture, owners, SLOs
-│       │   ├── runbook-*.md     ← service-specific runbooks
-│       │   └── adr-*.md         ← service-scoped decisions (if applicable)
-│       └── ...
+│       ├── example-service/
+│       │   └── _index.md        ← overview, architecture, owners, SLOs
+│       └── <service-name>/
+│           ├── _index.md        ← overview, architecture, owners, SLOs
+│           ├── runbook-*.md     ← service-specific runbooks
+│           └── adr-*.md         ← service-scoped decisions (if applicable)
 ├── templates/
-│   ├── runbook-template.md
 │   ├── adr-template.md
 │   ├── postmortem-template.md
-│   └── service-template.md
+│   ├── runbook-template.md
+│   ├── service-template.md
+│   └── claude-commands/
+│       ├── docs.md              ← source for /docs command deployed to service repos
+│       ├── work.md              ← source for /work command deployed to service repos
+│       └── setup-docs.md        ← source for /setup-docs command deployed globally
 ├── hugo.toml
 ├── layouts/
 │   ├── _default/_markup/
