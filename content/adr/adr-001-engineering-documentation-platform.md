@@ -70,6 +70,26 @@ This applies globally across all repos without requiring per-repo configuration.
 Service repositories contain a minimal `CLAUDE.md` covering only local setup and test
 commands, with a pointer to their service page in engineering-docs for all other context.
 
+**5. Diagramming (Mermaid)**
+Architecture diagrams, flow diagrams, and dependency maps are written as Mermaid code
+blocks directly in Markdown. Hugo renders them as interactive SVG diagrams in the browser
+via a render hook and the Mermaid JS library — no external diagramming tool, no image
+files to maintain, and no broken diagrams when services change.
+
+Diagrams live alongside the documentation they describe. A service architecture diagram
+lives in `content/services/<service>/_index.md`. A platform overview lives in the
+relevant ADR. Because diagrams are code, they go through the same PR review process as
+all other documentation changes.
+
+Mermaid supports flowcharts, sequence diagrams, entity-relationship diagrams, Gantt
+charts, and more. For the majority of engineering documentation needs — service
+architecture, deployment flows, incident timelines, data models — Mermaid covers the
+requirement without requiring engineers to context-switch into a separate tool.
+
+Where richer or more complex diagrams are needed (e.g. existing Miro boards), SVG or PNG
+exports can be placed in `static/images/` and referenced from any page. Mermaid is the
+default; static exports are the fallback.
+
 **4. MCP Integration (GitHub MCP Server)**
 Anthropic's GitHub MCP server is configured to give Claude Code programmatic access to
 `engineering-docs`. This enables Claude to search, read, and propose changes to
@@ -102,6 +122,11 @@ engineering-docs/
 │   ├── postmortem-template.md
 │   └── service-template.md
 ├── hugo.toml
+├── layouts/
+│   ├── _default/_markup/
+│   │   └── render-codeblock-mermaid.html  ← Mermaid render hook
+│   └── partials/
+│       └── extend_head.html               ← loads Mermaid JS conditionally
 └── .github/
     └── workflows/
         └── deploy.yml
@@ -110,47 +135,45 @@ engineering-docs/
 ## Platform overview
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph Engineers["Engineers"]
-        E1[Engineer writes\nMarkdown in VS Code]
-        E2[Engineer opens\nPR on GitHub]
-        E3[Engineer browses\nHugo wiki]
-        E4[Engineer asks\nClaude Code]
+        E1[Write Markdown\nin VS Code]
+        E2[Open PR\non GitHub]
+        E3[Browse\nHugo wiki]
+        E4[Ask\nClaude Code]
     end
 
-    subgraph Repo["engineering-docs (GHEC)"]
-        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems]
+    subgraph Repo["engineering-docs · GHEC"]
+        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems\nMermaid diagrams]
         TMPL[Templates]
         CLAUDE_MD[CLAUDE.md]
         CO[CODEOWNERS]
     end
 
     subgraph CI["GitHub Actions"]
-        PR_CHECK[PR review\nenforced by CODEOWNERS]
-        BUILD[Hugo build\nhuge --minify]
-        PAGEFIND[Pagefind index\nfuture]
-        DEPLOY[Deploy to\ngh-pages branch]
+        PR_CHECK[PR review\nCODEOWNERS]
+        BUILD[Hugo build\n--minify]
+        DEPLOY[Deploy to\ngh-pages]
     end
 
     subgraph Pages["GitHub Pages"]
-        SITE[Static HTML site\nrawsharklives.github.io/engineering-docs]
-        SEARCH[Search index\nindex.json · Fuse.js]
+        SITE[Static wiki\nHugo + PaperMod]
+        SEARCH[Search\nFuse.js · index.json]
     end
 
-    subgraph AI["AI layer"]
-        MCP[GitHub MCP Server\nread · search · PR]
-        CC[Claude Code\nin any service repo]
-        GLOBAL_MD[~/.claude/CLAUDE.md\nper engineer]
+    subgraph AI["AI Layer"]
+        CC[Claude Code]
+        GLOBAL_MD[~/.claude/CLAUDE.md]
+        MCP[GitHub MCP Server]
     end
 
     E1 -->|git push| E2
-    E2 -->|merge to main| PR_CHECK
+    E2 -->|merge to main| Repo
+    Repo --> PR_CHECK
     PR_CHECK --> BUILD
-    BUILD --> PAGEFIND
-    PAGEFIND --> DEPLOY
-    DEPLOY --> SITE
-    SITE --> SEARCH
-    E3 -->|browse + search| SITE
+    BUILD --> DEPLOY
+    DEPLOY --> Pages
+    E3 -->|browse + search| Pages
     E4 --> CC
     CC --> GLOBAL_MD
     CC --> MCP
@@ -176,6 +199,9 @@ flowchart TD
   Actions, and GitHub Pages are tools we already have.
 - **Portability and longevity.** Plain Markdown in Git is readable by any tool, any
   editor, and any future platform.
+- **Diagrams as code.** Mermaid diagrams live in the same repo as the documentation they
+  describe, go through PR review, and render automatically on the Hugo site. No external
+  diagramming tool or stale image exports to maintain.
 
 ### Negative
 
@@ -205,6 +231,7 @@ flowchart TD
 - Define a process for keeping service docs current (ownership, review cadence)
 - Update each service repo's `CLAUDE.md` to be lightweight and point to engineering-docs
 - Evaluate onboarding editor tooling for non-Git contributors
+- Add Mermaid diagrams to service pages as they are created or migrated
 
 ---
 
