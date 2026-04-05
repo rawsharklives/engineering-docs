@@ -81,5 +81,24 @@
     display: block;
     margin-bottom: 8px;
   }
+  /* svg-pan-zoom control icons */
+  .mermaid svg [id="svg-pan-zoom-controls"] {
+    transform: scale(0.6);
+    transform-origin: right bottom;
+    transform-box: fill-box;
+  }
+  .mermaid svg [id="svg-pan-zoom-controls"] rect {
+    fill: transparent !important;
+    stroke: none !important;
+  }
+  .mermaid svg [id="svg-pan-zoom-controls"] path,
+  .mermaid svg [id="svg-pan-zoom-controls"] polygon {
+    fill: #555 !important;
+    transition: fill 0.15s;
+  }
+  .mermaid svg [id="svg-pan-zoom-controls"] g:hover path,
+  .mermaid svg [id="svg-pan-zoom-controls"] g:hover polygon {
+    fill: #00d4ff !important;
+  }
 </style>
 {{ end }}
