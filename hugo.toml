@@ -3,6 +3,7 @@ languageCode = "en-gb"
 title = "Engineering Docs"
 theme = "PaperMod"
 paginate = 20
+enableGitInfo = true
 
 [params]
   description = "Canonical engineering knowledge base"
