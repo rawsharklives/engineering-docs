@@ -146,6 +146,129 @@ engineering-docs/
         └── deploy.yml
 ```
 
+## Claude Code modes: /docs and /work
+
+To make it easy for engineers to switch between querying documentation and working on a
+service, two Claude Code slash commands are provided: `/docs` and `/work`. These are
+available in any service repo and are designed so that all prompt behaviour is managed
+centrally from `engineering-docs` — no service repo changes are needed when the prompts
+are updated.
+
+### The two modes
+
+**`/docs` — Documentation mode**
+Instructs Claude to answer exclusively from `engineering-docs` via the GitHub MCP server.
+Claude will not use local repo files, training knowledge, or the web. If the answer is
+not in engineering-docs, it will say so rather than guessing. Use this when looking up
+runbooks, ADRs, service pages, or platform standards.
+
+**`/work` — Work mode**
+Returns Claude to normal engineering mode. Local repo files, training knowledge, and all
+available tools are in scope. The engineering-docs repo remains available via MCP for
+reference. Use this when writing code, debugging, or working on tasks within the service
+repo.
+
+Each mode confirms activation and tells the engineer how to switch to the other. Use
+`/clear` to wipe context entirely and start fresh.
+
+### Centralised prompt architecture
+
+The prompt instructions for each mode live in `engineering-docs`, not in individual
+service repos:
+
+```
+engineering-docs/
+└── .claude/
+    └── prompts/
+        ├── docs-mode.md    ← prompt for /docs
+        └── work-mode.md    ← prompt for /work
+```
+
+Service repos contain only two thin command files — pointers that instruct Claude to
+fetch the prompt from `engineering-docs` via MCP at invocation time:
+
+```
+your-service-repo/
+└── .claude/
+    └── commands/
+        ├── docs.md    ← one line: fetch docs-mode.md from engineering-docs
+        └── work.md    ← one line: fetch work-mode.md from engineering-docs
+```
+
+The content of each command file is a single instruction:
+
+**`.claude/commands/docs.md`**
+```
+Using the GitHub MCP server, read the file `.claude/prompts/docs-mode.md`
+from the rawsharklives/engineering-docs repository and follow the instructions
+in it exactly.
+```
+
+**`.claude/commands/work.md`**
+```
+Using the GitHub MCP server, read the file `.claude/prompts/work-mode.md`
+from the rawsharklives/engineering-docs repository and follow the instructions
+in it exactly.
+```
+
+When the prompt behaviour needs updating — tightening mode restrictions, changing the
+confirmation message, pointing at a renamed repo — update the prompt files in
+`engineering-docs` once. Every service repo picks up the change immediately on next
+invocation. No PRs required in individual repos.
+
+### Adding /docs and /work to a new service repo
+
+Four steps, takes under two minutes:
+
+**1. Create the commands directory**
+```bash
+mkdir -p .claude/commands
+```
+
+**2. Create `.claude/commands/docs.md`**
+```
+Using the GitHub MCP server, read the file `.claude/prompts/docs-mode.md`
+from the rawsharklives/engineering-docs repository and follow the instructions
+in it exactly.
+```
+
+**3. Create `.claude/commands/work.md`**
+```
+Using the GitHub MCP server, read the file `.claude/prompts/work-mode.md`
+from the rawsharklives/engineering-docs repository and follow the instructions
+in it exactly.
+```
+
+**4. Commit and push**
+```bash
+git add .claude/commands/
+git commit -m "Add /docs and /work Claude Code mode commands"
+git push
+```
+
+The commands are immediately available in any Claude Code session opened in that repo.
+
+### Verification
+
+Open a Claude Code session in the repo and run `/docs`. Claude should fetch
+`docs-mode.md` from engineering-docs via MCP, confirm it is in Docs Mode, and tell the
+engineer to type `/work` to switch back. If it fails, check the MCP server is connected:
+
+```bash
+claude mcp list
+```
+
+### File reference
+
+| File | Location | Purpose |
+|------|----------|---------|
+| Docs mode prompt | `engineering-docs/.claude/prompts/docs-mode.md` | Central prompt for /docs |
+| Work mode prompt | `engineering-docs/.claude/prompts/work-mode.md` | Central prompt for /work |
+| Service command (docs) | `<service-repo>/.claude/commands/docs.md` | Pointer to docs-mode.md |
+| Service command (work) | `<service-repo>/.claude/commands/work.md` | Pointer to work-mode.md |
+
+---
+
 ## Platform overview
 
 ```mermaid
