@@ -51,15 +51,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        mutation.addedNodes.forEach(function (node) {
-          if (node.nodeName === 'svg') initPanZoom();
-        });
-      });
+    var observer = new MutationObserver(function () {
+      initPanZoom();
     });
     document.querySelectorAll('.mermaid').forEach(function (el) {
-      observer.observe(el, { childList: true });
+      observer.observe(el, { childList: true, subtree: true });
     });
   });
 </script>
