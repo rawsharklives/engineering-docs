@@ -5,10 +5,12 @@ draft: false
 tags: ["platform", "documentation", "hugo", "mcp"]
 ---
 
-**Status:** Proposed
-**Date:** April 2026
-**Author:** Rich — VP Engineering
-**Reviewers:** Platform Engineering Team
+| | |
+|---|---|
+| **Status** | Proposed |
+| **Date** | April 2026 |
+| **Author** | Rich — VP Engineering |
+| **Reviewers** | Platform Engineering Team |
 
 ---
 
