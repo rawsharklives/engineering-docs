@@ -1,9 +1,11 @@
 # ADR-NNN: Title
 
-**Status:** Proposed | Accepted | Deprecated | Superseded by [ADR-NNN](../adr-nnn-title.md)
-**Date:** YYYY-MM-DD
-**Author:** Name
-**Reviewers:** Team / individuals
+| | |
+|---|---|
+| **Status** | Proposed \| Accepted \| Deprecated \| Superseded by [ADR-NNN](../adr-nnn-title.md) |
+| **Date** | YYYY-MM-DD |
+| **Author** | Name |
+| **Reviewers** | Team / individuals |
 
 ---
 
