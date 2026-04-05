@@ -15,7 +15,7 @@
       edgeLabelBackground: '#000000',
       clusterBkg: '#1a1a1a',
       clusterBorder: '#888888',
-      titleColor: '#bf7fff',
+      titleColor: '#ffd700',
       nodeTextColor: '#ffffff',
     }
   });
@@ -27,9 +27,15 @@
     padding: 1.5rem;
     overflow-x: auto;
   }
+  .mermaid .flowchart-link {
+    stroke-width: 2.5px !important;
+  }
+  .mermaid marker path {
+    stroke-width: 2px !important;
+  }
   .mermaid .cluster-label span,
   .mermaid .cluster-label p {
-    color: #bf7fff !important;
+    color: #ffd700 !important;
     font-weight: 700 !important;
     display: block;
     margin-bottom: 8px;
