@@ -249,6 +249,39 @@ flowchart LR
 
 ---
 
+## Access control
+
+The Hugo site is deployed to GitHub Pages and must be accessible only to Netwealth
+engineers — not the public internet.
+
+### On GitHub Enterprise Cloud (production)
+
+GHEC supports private GitHub Pages natively. Access is restricted to authenticated
+members of the GitHub organisation via a single setting:
+
+**Settings → Pages → Access control → Private**
+
+With this enabled, any engineer who is not an authenticated member of the
+`netwealth` GitHub organisation will receive a 404 when attempting to access the site.
+No changes to the Hugo build, the Actions workflow, or the repository structure are
+required. This is the mechanism that will be used when the platform is deployed to GHEC.
+
+### On GitHub.com (personal trial)
+
+The personal trial repository (`rawsharklives/engineering-docs`) is hosted on GitHub.com,
+where Pages access control is a GHEC-only feature. The trial site is therefore publicly
+accessible. This is acceptable for the purposes of proving out the tooling with dummy
+content, but no sensitive internal information should be committed to the trial repository.
+
+### Access control is not a code concern
+
+Restricting access to the Pages site is a hosting policy enforced by GitHub, not a
+property of the Hugo build or the repository content. Engineers do not need to make any
+changes to documentation, templates, or workflows to enable access control — it is
+configured once by a repository administrator when the GHEC repository is created.
+
+---
+
 ## Scaling and future-proofing
 
 ### Search at scale
