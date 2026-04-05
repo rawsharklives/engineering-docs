@@ -220,35 +220,40 @@ invocation. No PRs required in individual repos.
 
 ### Adding /docs and /work to a new service repo
 
-Four steps, takes under two minutes:
+This is automated via two Claude Code slash commands. Setup is a one-time step per
+engineer, after which bootstrapping any new repo takes a single command.
 
-**1. Create the commands directory**
-```bash
-mkdir -p .claude/commands
-```
+**One-time setup: install `/setup-docs` to your local commands**
 
-**2. Create `.claude/commands/docs.md`**
+Open Claude Code in the `engineering-docs` repo and run:
+
 ```
-Using the GitHub MCP server, read the file `.claude/prompts/docs-mode.md`
-from the rawsharklives/engineering-docs repository and follow the instructions
-in it exactly.
+/setup-docs-local
 ```
 
-**3. Create `.claude/commands/work.md`**
+This copies `setup-docs.md` from `engineering-docs` into your global Claude commands
+folder (`~/.claude/commands/`), making `/setup-docs` available in every repo on your
+machine. You only need to do this once.
+
+**Per-repo setup: install `/docs` and `/work` into a new service repo**
+
+Open Claude Code in the new service repo and run:
+
 ```
-Using the GitHub MCP server, read the file `.claude/prompts/work-mode.md`
-from the rawsharklives/engineering-docs repository and follow the instructions
-in it exactly.
+/setup-docs
 ```
 
-**4. Commit and push**
+Claude fetches the latest `docs.md` and `work.md` command files from `engineering-docs`
+via the GitHub MCP server and writes them to `.claude/commands/` in the current repo.
+The commands are immediately available in that Claude Code session.
+
+Commit the generated files to the repo so the commands are available to all engineers:
+
 ```bash
 git add .claude/commands/
 git commit -m "Add /docs and /work Claude Code mode commands"
 git push
 ```
-
-The commands are immediately available in any Claude Code session opened in that repo.
 
 ### Verification
 
