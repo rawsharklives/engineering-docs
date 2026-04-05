@@ -13,6 +13,7 @@ paginate = 20
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   disableSpecial1stPost = true
+  hideFromHome = true
   displayFullLangName = true
   defaultTheme = "auto"
 
