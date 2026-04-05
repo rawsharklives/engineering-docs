@@ -5,8 +5,6 @@ draft: false
 tags: ["platform", "documentation", "hugo", "mcp"]
 ---
 
-# ADR-001: Engineering Documentation Platform
-
 **Status:** Proposed
 **Date:** April 2026
 **Author:** Rich — VP Engineering
