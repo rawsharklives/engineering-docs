@@ -107,6 +107,57 @@ engineering-docs/
         └── deploy.yml
 ```
 
+## Platform overview
+
+```mermaid
+flowchart TD
+    subgraph Engineers["Engineers"]
+        E1[Engineer writes\nMarkdown in VS Code]
+        E2[Engineer opens\nPR on GitHub]
+        E3[Engineer browses\nHugo wiki]
+        E4[Engineer asks\nClaude Code]
+    end
+
+    subgraph Repo["engineering-docs (GHEC)"]
+        MD[Markdown content\nrunbooks · ADRs · services\nonboarding · postmortems]
+        TMPL[Templates]
+        CLAUDE_MD[CLAUDE.md]
+        CO[CODEOWNERS]
+    end
+
+    subgraph CI["GitHub Actions"]
+        PR_CHECK[PR review\nenforced by CODEOWNERS]
+        BUILD[Hugo build\nhuge --minify]
+        PAGEFIND[Pagefind index\nfuture]
+        DEPLOY[Deploy to\ngh-pages branch]
+    end
+
+    subgraph Pages["GitHub Pages"]
+        SITE[Static HTML site\nrawsharklives.github.io/engineering-docs]
+        SEARCH[Search index\nindex.json · Fuse.js]
+    end
+
+    subgraph AI["AI layer"]
+        MCP[GitHub MCP Server\nread · search · PR]
+        CC[Claude Code\nin any service repo]
+        GLOBAL_MD[~/.claude/CLAUDE.md\nper engineer]
+    end
+
+    E1 -->|git push| E2
+    E2 -->|merge to main| PR_CHECK
+    PR_CHECK --> BUILD
+    BUILD --> PAGEFIND
+    PAGEFIND --> DEPLOY
+    DEPLOY --> SITE
+    SITE --> SEARCH
+    E3 -->|browse + search| SITE
+    E4 --> CC
+    CC --> GLOBAL_MD
+    CC --> MCP
+    MCP -->|reads docs| Repo
+    CLAUDE_MD -->|context| CC
+```
+
 ## Consequences
 
 ### Positive

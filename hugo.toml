@@ -63,3 +63,6 @@ paginate = 20
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[params.mermaid]
+  enable = true
