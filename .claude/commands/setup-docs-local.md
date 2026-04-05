@@ -1,0 +1,1 @@
+Copy the file `.claude/prompts/setup-docs.md` from the rawsharklives/engineering-docs repository and place it in my local claude commands folder so that it is available for all existing and new repos. Confirm to the user what has been doneand also explain that they can init a new repo, open claude and type /setup-docs in order to add the /docs and /work commands to any new repos.
