@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
 <script>
   mermaid.initialize({
-    startOnLoad: false,
+    startOnLoad: true,
     theme: 'base',
     themeVariables: {
       background: '#000000',
@@ -21,20 +21,34 @@
     }
   });
 
+  function initPanZoom() {
+    document.querySelectorAll('.mermaid svg').forEach(function (svg) {
+      if (svg.dataset.panZoom) return;
+      svg.dataset.panZoom = 'true';
+      svg.style.width = '100%';
+      svg.style.height = '100%';
+      svgPanZoom(svg, {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true,
+        minZoom: 0.3,
+        maxZoom: 10,
+      });
+    });
+  }
+
+  // Use MutationObserver to detect when Mermaid inserts the SVG
   document.addEventListener('DOMContentLoaded', function () {
-    mermaid.run().then(function () {
-      document.querySelectorAll('.mermaid svg').forEach(function (svg) {
-        svg.style.width = '100%';
-        svg.style.height = '100%';
-        svgPanZoom(svg, {
-          zoomEnabled: true,
-          controlIconsEnabled: true,
-          fit: true,
-          center: true,
-          minZoom: 0.5,
-          maxZoom: 10,
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeName === 'svg') initPanZoom();
         });
       });
+    });
+    document.querySelectorAll('.mermaid').forEach(function (el) {
+      observer.observe(el, { childList: true });
     });
   });
 </script>
