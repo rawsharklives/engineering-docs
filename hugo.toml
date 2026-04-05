@@ -50,6 +50,11 @@ paginate = 20
     name = "Standards"
     url = "/standards/"
     weight = 50
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 60
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
