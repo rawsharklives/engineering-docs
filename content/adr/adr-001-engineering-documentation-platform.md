@@ -282,6 +282,135 @@ configured once by a repository administrator when the GHEC repository is create
 
 ---
 
+## AuthN and AuthZ for Documentation MCP Server
+
+### The problem with personal access tokens
+
+The naive approach to MCP authentication — each engineer creates a GitHub Personal
+Access Token and stores it in their local Claude Code config — has significant security
+problems at scale:
+
+- The token lands in `~/.claude.json` in plaintext on every engineer's machine
+- N engineers means N copies of a long-lived credential, each a potential exposure
+- Tokens are typically over-scoped (`repo` grants read and write across all repos)
+- Offboarding requires hunting down and revoking each engineer's token individually
+- There is no audit trail of which engineer accessed what, and when
+
+The correct production architecture eliminates personal tokens entirely. Engineers
+authenticate via their existing corporate identity, and a centralised broker issues
+short-lived, scoped credentials on demand.
+
+### Architecture: Entra + Azure Key Vault + GitHub App
+
+The recommended approach for the GHEC rollout uses three integrated components:
+
+**Microsoft Entra (identity and RBAC)**
+An Entra Enterprise Application represents the token broker. App roles are defined
+(`engineering-docs.read`) and assigned to the Engineering security group in Entra.
+Engineers authenticate silently via their existing corporate SSO session — no login
+prompt, no credential to manage. Conditional Access policies can enforce MFA and
+compliant device checks before any token is issued.
+
+**Azure Key Vault (credential storage)**
+The GitHub App private key is stored in Azure Key Vault. The token broker retrieves it
+at runtime via managed identity — the key never touches an engineer's machine and is
+never distributed. Rotation is handled centrally.
+
+**Azure Function (token broker)**
+A small Azure Function acts as the broker. It receives an Entra JWT from the engineer's
+machine, validates it against the tenant, checks group membership and role assignment,
+then uses the GitHub App private key from Key Vault to generate a short-lived GitHub
+App installation token. That token is returned to the MCP server and used to access
+`engineering-docs`. Tokens expire after one hour and are never persisted.
+
+### Auth flow
+
+```mermaid
+flowchart TD
+    subgraph Engineer["Engineer's Machine"]
+        CC[Claude Code]
+        MCP[GitHub MCP Server]
+        AZ[az CLI\nsilent Entra auth]
+    end
+
+    subgraph Azure["Azure"]
+        ENTRA[Entra Enterprise App\nengineering-docs.read role]
+        FUNC[Azure Function\nToken Broker]
+        KV[Azure Key Vault\nGitHub App private key]
+    end
+
+    subgraph GitHub["GitHub"]
+        APP[GitHub App\ninstalled on engineering-docs]
+        REPO[engineering-docs repo\nread-only]
+    end
+
+    CC -->|asks for docs| MCP
+    MCP -->|request token| AZ
+    AZ -->|silent SSO| ENTRA
+    ENTRA -->|validates group\nmembership + role| ENTRA
+    ENTRA -->|Entra JWT| AZ
+    AZ -->|JWT| FUNC
+    FUNC -->|validate JWT| ENTRA
+    FUNC -->|fetch private key| KV
+    KV -->|private key| FUNC
+    FUNC -->|generate installation token| APP
+    APP -->|1hr access token| FUNC
+    FUNC -->|access token| MCP
+    MCP -->|read docs| REPO
+    REPO -->|content| CC
+```
+
+### What engineers store locally
+
+No keys. No secrets. Three non-sensitive config values, shipped via the onboarding
+script and safe to commit to dotfiles:
+
+```bash
+claude mcp add github -s user \
+  -e ENTRA_TENANT_ID=your-tenant-id \
+  -e ENTRA_BROKER_APP_ID=your-broker-app-id \
+  -e GITHUB_TOKEN_BROKER_URL=https://your-function.azurewebsites.net/token \
+  -- npx @modelcontextprotocol/server-github
+```
+
+### Access control via Entra groups
+
+| Action | Mechanism |
+|--------|-----------|
+| Grant access to an engineer | Add them to the Engineering Entra group |
+| Revoke access | Remove them from the group — broker rejects their next request |
+| Offboard an engineer | Remove from group — no tokens to hunt down or rotate |
+| Expand access (e.g. write) | Add a new app role, assign to a sub-group |
+| Audit who accessed what | Entra sign-in logs + Function app logs |
+
+### Entra Conditional Access
+
+Because authentication goes through Entra, Conditional Access policies apply
+automatically — no additional configuration in the MCP layer:
+
+- Require MFA before issuing a token
+- Require a compliant, managed device
+- Block access from outside corporate network or known locations
+- Risk-based policies (e.g. block if Entra detects anomalous sign-in behaviour)
+
+### Implementation as follow-on work
+
+This architecture is the target state for the GHEC rollout. It is not required for the
+personal trial, where a scoped fine-grained PAT is acceptable. The broker function is
+small (~50 lines), and the Entra app registration and Key Vault setup are one-time
+administrative tasks.
+
+Follow-on work items:
+- Register Entra Enterprise App and define `engineering-docs.read` role
+- Create Engineering Entra security group and assign role
+- Store GitHub App private key in Azure Key Vault
+- Build and deploy token broker Azure Function
+- Update onboarding script to configure MCP via broker rather than personal PAT
+- Apply Conditional Access policy to the Enterprise App
+- Document the setup in `content/onboarding/` in this repository
+
+---
+
 ## Scaling and future-proofing
 
 ### Search at scale

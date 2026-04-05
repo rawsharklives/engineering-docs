@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
 <script>
   mermaid.initialize({
-    startOnLoad: true,
+    startOnLoad: false,
     theme: 'base',
     themeVariables: {
       background: '#000000',
@@ -51,15 +51,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        mutation.addedNodes.forEach(function (node) {
-          if (node.nodeName === 'svg') initPanZoom();
-        });
-      });
-    });
-    document.querySelectorAll('.mermaid').forEach(function (el) {
-      observer.observe(el, { childList: true });
+    mermaid.run({
+      nodes: document.querySelectorAll('.mermaid')
+    }).then(function () {
+      initPanZoom();
     });
   });
 </script>
