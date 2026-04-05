@@ -516,6 +516,94 @@ automatically — no additional configuration in the MCP layer:
 - Block access from outside corporate network or known locations
 - Risk-based policies (e.g. block if Entra detects anomalous sign-in behaviour)
 
+### Claude Desktop (Windows)
+
+Engineers using Claude Desktop on Windows can use the same Entra + Azure Key Vault broker
+architecture — no personal tokens, no keys on disk. The MCP server config lives in a
+JSON file rather than being managed via `claude mcp add`, but the environment variables
+and authentication flow are identical.
+
+**Config file location (Windows):**
+
+```
+%APPDATA%\Claude\claude_desktop_config.json
+```
+
+**Config content:**
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "ENTRA_TENANT_ID": "your-tenant-id",
+        "ENTRA_BROKER_APP_ID": "your-broker-app-id",
+        "GITHUB_TOKEN_BROKER_URL": "https://your-function.azurewebsites.net/token"
+      }
+    }
+  }
+}
+```
+
+The same three non-sensitive values used in the Claude Code CLI setup. No keys, no
+secrets. The MCP server authenticates to the Azure Function broker via the engineer's
+existing Entra SSO session in exactly the same way.
+
+**Distribution via onboarding script**
+
+Claude Desktop has no CLI equivalent to `claude mcp add`. The onboarding script writes
+directly to the config file. A single script can handle both Claude Code and Claude
+Desktop in one pass:
+
+```powershell
+# onboarding/setup-claude-mcp.ps1
+
+$entraTenantId     = "<your-tenant-id>"
+$entraBrokerAppId  = "<your-broker-app-id>"
+$brokerUrl         = "https://your-function.azurewebsites.net/token"
+
+# Claude Code CLI
+claude mcp add github -s user `
+  -e ENTRA_TENANT_ID=$entraTenantId `
+  -e ENTRA_BROKER_APP_ID=$entraBrokerAppId `
+  -e GITHUB_TOKEN_BROKER_URL=$brokerUrl `
+  -- npx @modelcontextprotocol/server-github
+
+# Claude Desktop (Windows)
+$desktopConfig = "$env:APPDATA\Claude\claude_desktop_config.json"
+if (Test-Path (Split-Path $desktopConfig)) {
+    $config = @{
+        mcpServers = @{
+            github = @{
+                command = "npx"
+                args    = @("@modelcontextprotocol/server-github")
+                env     = @{
+                    ENTRA_TENANT_ID        = $entraTenantId
+                    ENTRA_BROKER_APP_ID    = $entraBrokerAppId
+                    GITHUB_TOKEN_BROKER_URL = $brokerUrl
+                }
+            }
+        }
+    } | ConvertTo-Json -Depth 5
+    Set-Content -Path $desktopConfig -Value $config
+    Write-Host "Claude Desktop configured."
+}
+```
+
+Engineers who only use one environment get the relevant block silently skipped if the
+config path doesn't exist. The three config values are hardcoded in the script — no
+secrets to enter during onboarding.
+
+**Slash commands in Claude Desktop**
+
+Note that the `/docs` and `/work` slash commands (`.claude/commands/`) are a Claude Code
+feature and are not available in Claude Desktop. Engineers using Claude Desktop can still
+ask Claude to read from `engineering-docs` via the MCP server directly, but without the
+structured mode switching. This is an acceptable limitation for Desktop users — the
+primary engineering workflow runs in Claude Code.
+
 ### Implementation as follow-on work
 
 This architecture is the target state for the GHEC rollout. It is not required for the
@@ -528,7 +616,7 @@ Follow-on work items:
 - Create Engineering Entra security group and assign role
 - Store GitHub App private key in Azure Key Vault
 - Build and deploy token broker Azure Function
-- Update onboarding script to configure MCP via broker rather than personal PAT
+- Write PowerShell onboarding script covering both Claude Code CLI and Claude Desktop (Windows) via the broker
 - Apply Conditional Access policy to the Enterprise App
 - Document the setup in `content/onboarding/` in this repository
 
