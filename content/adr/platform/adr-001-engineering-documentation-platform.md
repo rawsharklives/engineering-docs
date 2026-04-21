@@ -707,3 +707,18 @@ should be either of:
 
 A proof of concept with realistic dummy data is planned to validate Pagefind's result
 quality and confirm the integration approach before committing to the migration.
+
+---
+
+## Addendum: Tooling with GHEC and Copilot
+
+### Management summary
+
+We recommend adopting GitHub Copilot Enterprise as the AI layer for our engineering documentation platform, in place of the Claude-based approach originally proposed. The capability is equivalent — Copilot now runs Anthropic's Claude models directly, so we lose nothing on quality — but the governance posture is materially stronger. Copilot sits under our existing Microsoft contract and compliance assessments, adds no new vendor to our regulatory register, and gives us centrally-managed controls over which models engineers can use, which repositories are off-limits, and a clear audit trail for supervisors. For a team and compliance function of our size, this lowers the ongoing cost of running the platform safely, without compromising on capability. The trade-offs are minor and outweighed by the simplicity of operating one AI vendor inside an estate we already run well.
+
+### Further reading
+
+| Addendum | Title | Status | Date |
+|----------|-------|--------|------|
+| [Copilot](../addendum-a-copilot-ghec-variant/) | GitHub Copilot + GHEC variant | Proposed | 2026-04-21 |
+| [Scaling](../addendum-b-mcp-scaling/) | Scaling the documentation MCP | Proposed | 2026-04-21 |
