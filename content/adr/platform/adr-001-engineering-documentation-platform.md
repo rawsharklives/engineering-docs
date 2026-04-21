@@ -44,7 +44,7 @@ A dedicated GitHub repository (`company-name/engineering-docs`) in GitHub Enterp
 becomes the single source of truth for all engineering knowledge. All documentation is
 written in Markdown and lives under version control. The repository is structured around
 five content areas: runbooks, architecture decision records (ADRs), onboarding guides,
-root cause analyses (RCAs), and service documentation. Templates are provided for each type and enforced
+root cause analysis (RCAs), and service documentation. Templates are provided for each type and enforced
 via CODEOWNERS and PR review.
 
 Service documentation — including architecture overviews, dependency maps, owner

@@ -20,7 +20,7 @@ enableGitInfo = true
 
 [params.homeInfoParams]
   Title = "Engineering Docs"
-  Content = "Canonical source of truth for runbooks, ADRs, onboarding guides, and root cause analyses."
+  Content = "Canonical source of truth for runbooks, ADRs, onboarding guides, and root cause analysis."
 
 [[params.socialIcons]]
   name = "github"
