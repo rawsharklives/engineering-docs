@@ -13,8 +13,24 @@ static wiki via Hugo + GitHub Pages.
 | Onboarding | `content/onboarding/` | Guides for new engineers |
 | RCAs | `content/rca/` | Root Cause Analysis |
 | Standards | `content/standards/` | Engineering standards and conventions |
+| Skills | `content/skills/` | Human-readable reference pages for AI skills |
 
 Templates for each document type are in `templates/`.
+
+## AI Skills
+
+Executable skill prompts live in `.claude/prompts/skills/`. Each file defines a named SDLC
+role the AI can play. Human-readable documentation for each skill is in `content/skills/`.
+Templates for deploying skills to service repos are in `templates/claude-commands/skills/`
+(Claude Code) and `templates/copilot-prompts/skills/` (Copilot).
+
+**Skills are not doc pages.** Skills tell the AI what to do. Doc pages tell the AI what
+things are. Do not mix the two.
+
+- Canonical prompts: `.claude/prompts/skills/<skill-id>.md`
+- Thin-file templates (Claude Code): `templates/claude-commands/skills/<skill-id>.md`
+- Copilot prompt templates: `templates/copilot-prompts/skills/<skill-id>.prompt.md`
+- Skill authoring template: `templates/skill-template.md`
 
 ## How to work with this repo
 

@@ -58,6 +58,11 @@ enableGitInfo = true
     url = "/standards/"
     weight = 50
   [[menu.main]]
+    identifier = "skills"
+    name = "Skills"
+    url = "/skills/"
+    weight = 55
+  [[menu.main]]
     identifier = "search"
     name = "Search"
     url = "/search/"

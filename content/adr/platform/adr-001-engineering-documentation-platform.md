@@ -722,3 +722,4 @@ We recommend adopting GitHub Copilot Enterprise as the AI layer for our engineer
 |----------|-------|--------|------|
 | [Copilot](../addendum-a-copilot-ghec-variant/) | GitHub Copilot + GHEC variant | Proposed | 2026-04-21 |
 | [Scaling](../addendum-b-mcp-scaling/) | Scaling the documentation MCP | Proposed | 2026-04-21 |
+| [Feature workflow](../addendum-c-feature-workflow/) | AI-Assisted Feature Workflow | Proposed | 2026-05-15 |
