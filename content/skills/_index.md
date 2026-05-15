@@ -9,6 +9,12 @@ software development lifecycle. Each skill defines: the role the AI plays, the i
 expects, the artefacts it produces, the quality bar it must meet, and the stage gate that
 tells the engineer what to review before the next stage begins.
 
+Skills follow the [agentskills.io specification](https://agentskills.io/specification).
+Each canonical skill package is a directory (`<skill-id>/SKILL.md`) with standard
+frontmatter — `name`, `description`, `compatibility`, `allowed-tools` — followed by the
+skill instructions. This format is platform-neutral: Claude Code and Copilot both consume
+it, either directly or via thin platform adapters.
+
 Skills are invoked with `/skills/<name>` in Claude Code or by referencing the
 `.github/prompts/skills/<name>.prompt.md` file in Copilot Chat.
 

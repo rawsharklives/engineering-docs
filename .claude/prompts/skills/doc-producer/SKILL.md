@@ -1,10 +1,11 @@
 ---
 name: doc-producer
-description: "Produce post-ship documentation for a completed feature: updated service page, new runbooks, and onboarding updates. Raises PRs to engineering-docs."
+description: Produce post-ship documentation for a completed feature: updated service pages, new runbooks, and onboarding guide updates. Raises PRs to engineering-docs. Use after a feature merges and documentation needs updating.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code', 'github-mcp-server/create_pull_request', 'github-mcp-server/create_or_update_file']
-mode: agent
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code mcp__github__create_pull_request mcp__github__create_or_update_file
 ---
 
 # Skill: Doc Producer

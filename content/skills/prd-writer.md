@@ -51,6 +51,8 @@ The skill stops after producing the PRD and tells the engineer to review before 
 **Copilot (VS Code):** reference `.github/prompts/skills/prd-writer.prompt.md` in
 Copilot Chat
 
+**Canonical source:** `.claude/prompts/skills/prd-writer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [System Designer](../system-designer/) — next stage in the feature workflow

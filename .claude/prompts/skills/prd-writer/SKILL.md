@@ -1,10 +1,11 @@
 ---
 name: prd-writer
-description: "Write a Product Requirements Document from a feature brief. Produces a structured PRD with user stories, acceptance criteria, out-of-scope, open questions, and success metrics."
+description: Translate a feature brief into a structured PRD with user stories, acceptance criteria, out-of-scope list, open questions, and success metrics. Use at the start of any non-trivial feature to produce requirements before system design begins.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code']
-mode: ask
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code
 ---
 
 # Skill: PRD Writer

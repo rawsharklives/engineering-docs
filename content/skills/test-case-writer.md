@@ -47,6 +47,8 @@ gaps before running [QA Reviewer](../qa-reviewer/).
 
 **Copilot (VS Code):** reference `.github/prompts/skills/test-case-writer.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/test-case-writer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [Ticket Definer](../ticket-definer/) — previous stage

@@ -55,6 +55,8 @@ this skill after they are resolved.
 
 **Copilot (VS Code):** reference `.github/prompts/skills/qa-reviewer.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/qa-reviewer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [Test Case Writer](../test-case-writer/) — previous stage

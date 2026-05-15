@@ -19,15 +19,20 @@ Templates for each document type are in `templates/`.
 
 ## AI Skills
 
-Executable skill prompts live in `.claude/prompts/skills/`. Each file defines a named SDLC
-role the AI can play. Human-readable documentation for each skill is in `content/skills/`.
-Templates for deploying skills to service repos are in `templates/claude-commands/skills/`
-(Claude Code) and `templates/copilot-prompts/skills/` (Copilot).
+Skills follow the [agentskills.io](https://agentskills.io/specification) specification.
+Each skill is a directory containing a `SKILL.md` file with standard frontmatter (`name`,
+`description`, `compatibility`, `metadata`, `allowed-tools`) followed by skill instructions.
+
+Canonical skill packages live in `.claude/prompts/skills/<skill-id>/SKILL.md`. Each
+defines a named SDLC role the AI can play. Human-readable documentation is in
+`content/skills/`. Templates for deploying skills to service repos are in
+`templates/claude-commands/skills/` (Claude Code) and `templates/copilot-prompts/skills/`
+(Copilot).
 
 **Skills are not doc pages.** Skills tell the AI what to do. Doc pages tell the AI what
 things are. Do not mix the two.
 
-- Canonical prompts: `.claude/prompts/skills/<skill-id>.md`
+- Canonical packages (agentskills.io format): `.claude/prompts/skills/<skill-id>/SKILL.md`
 - Thin-file templates (Claude Code): `templates/claude-commands/skills/<skill-id>.md`
 - Copilot prompt templates: `templates/copilot-prompts/skills/<skill-id>.prompt.md`
 - Skill authoring template: `templates/skill-template.md`
