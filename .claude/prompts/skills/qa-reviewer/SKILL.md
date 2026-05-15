@@ -1,10 +1,11 @@
 ---
 name: qa-reviewer
-description: "Cross-reference a feature's PRD, implementation, and test scenarios to produce a gap analysis report with P0–P3 severity classification and a clear Approve/Block verdict."
+description: Cross-reference a PRD's acceptance criteria against an implementation and test scenarios. Produces a gap analysis report with P0–P3 severity and an Approve/Conditional Approve/Block verdict. Use before merging a feature PR.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code', 'github-mcp-server/get_pull_request_files']
-mode: ask
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code mcp__github__get_pull_request_files
 ---
 
 # Skill: QA Reviewer

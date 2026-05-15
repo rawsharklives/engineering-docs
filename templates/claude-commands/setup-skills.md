@@ -1,5 +1,9 @@
 Use the GitHub MCP server to install the standard AI Skills commands into this repo.
 
+Each skill follows the agentskills.io specification — a `SKILL.md` file in a named directory.
+The Claude Code thin-file commands reference these canonical packages; the Copilot prompt
+files embed the full skill content for direct Copilot loading.
+
 Steps:
 1. Fetch each of the following files from rawsharklives/engineering-docs (ref: main) and write them to `.claude/commands/skills/<filename>` in the current repo — create the directory if it does not exist, preserve content exactly:
    - `templates/claude-commands/skills/prd-writer.md`
@@ -23,4 +27,4 @@ Steps:
    - Claude Code skills are available as `/skills/<name>` (e.g. `/skills/prd-writer`)
    - Copilot skills are available in VS Code as `#<filename>` in Copilot Chat or via `.github/prompts/skills/`
    - Commit the new files to the repo so the Copilot cloud agent can use them
-   - Re-run `/setup-skills` in future to pick up updates to the Copilot prompt files (Claude Code picks up updates automatically)
+   - Re-run `/setup-skills` in future to pick up updates to the Copilot prompt files (Claude Code picks up updates automatically via the canonical SKILL.md packages)

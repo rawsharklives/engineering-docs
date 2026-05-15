@@ -1,10 +1,11 @@
 ---
 name: ticket-definer
-description: "Break an approved PRD and merged ADR into a set of GitHub Issues. Creates Issues directly via MCP, labelled needs-review, with sizing and dependencies."
+description: Break an approved ADR and PRD into GitHub Issues with sizing, acceptance criteria, and dependencies. Creates Issues via GitHub MCP. Use after the ADR is merged to convert architecture into trackable work.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code', 'github-mcp-server/list_issues', 'github-mcp-server/create_issue']
-mode: agent
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code mcp__github__list_issues mcp__github__create_issue
 ---
 
 # Skill: Ticket Definer

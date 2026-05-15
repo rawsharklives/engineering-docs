@@ -54,6 +54,8 @@ create GitHub Issues for each action item. This is the final stage in the featur
 
 **Copilot (VS Code):** reference `.github/prompts/skills/retrospective.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/retrospective/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [Doc Producer](../doc-producer/) — previous stage

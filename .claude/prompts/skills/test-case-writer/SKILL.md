@@ -1,10 +1,11 @@
 ---
 name: test-case-writer
-description: "Write acceptance test scenarios for a completed implementation. Produces a structured test scenario document in Given/When/Then format covering happy path, edge cases, errors, security, and performance."
+description: Write acceptance test scenarios in Given/When/Then format for a completed implementation. Covers happy path, edge cases, errors, security, and performance. Use after implementation is complete and before QA review.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code', 'github-mcp-server/get_pull_request_files']
-mode: ask
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code mcp__github__get_pull_request_files
 ---
 
 # Skill: Test Case Writer

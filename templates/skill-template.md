@@ -1,3 +1,13 @@
+---
+name: skill-name
+description: One sentence describing what this skill does and when to use it. Max 1024 characters. Should include keywords that help agents route to it correctly.
+compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code
+---
+
 # Skill: [Name]
 
 ## Role

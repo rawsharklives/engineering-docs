@@ -47,6 +47,8 @@ CODEOWNERS review process, then run [Retrospective](../retrospective/).
 
 **Copilot (VS Code):** reference `.github/prompts/skills/doc-producer.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/doc-producer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [QA Reviewer](../qa-reviewer/) — previous stage

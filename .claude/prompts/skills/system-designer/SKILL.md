@@ -1,10 +1,11 @@
 ---
 name: system-designer
-description: "Produce a draft ADR and architecture design for an approved PRD. Includes a Mermaid diagram and list of follow-on architectural decisions."
+description: Produce a draft ADR and architecture design from an approved PRD. Includes Mermaid diagrams and a list of follow-on decisions. Use after PRD approval to design the technical approach before ticket breakdown.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code']
-mode: ask
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code
 ---
 
 # Skill: System Designer

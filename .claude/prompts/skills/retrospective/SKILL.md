@@ -1,10 +1,11 @@
 ---
 name: retrospective
-description: "Facilitate a blameless written retrospective for a completed feature. Produces a structured retro document as a PR to engineering-docs with action items and owners."
+description: Facilitate a blameless written retrospective for a completed feature. Produces a structured retro document with what went well, what went poorly, and action items with owners. Raises a PR to engineering-docs. Use after a feature ships to capture learnings.
 compatibility: Designed for Claude Code and GitHub Copilot. Requires GitHub MCP server.
-agent: agent
-tools: ['github-mcp-server/get_file_contents', 'github-mcp-server/search_code', 'github-mcp-server/create_pull_request', 'github-mcp-server/create_or_update_file']
-mode: ask
+metadata:
+  author: netwealth
+  version: "1.0"
+allowed-tools: mcp__github__get_file_contents mcp__github__search_code mcp__github__create_pull_request mcp__github__create_or_update_file
 ---
 
 # Skill: Retrospective
@@ -47,8 +48,8 @@ Before proceeding, confirm you have received:
    - A named owner (ask the engineer if not known)
    - A suggested due date or sprint
 6. Write the retro document.
-7. Use the GitHub MCP server to raise a PR to `content/rca/` in
-   rawsharklives/engineering-docs.
+7. Use the GitHub MCP server to raise a PR to `content/rca/` (or a new
+   `content/retrospectives/` section if preferred) in rawsharklives/engineering-docs.
 
 ## Outputs
 

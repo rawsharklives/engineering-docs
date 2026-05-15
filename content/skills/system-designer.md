@@ -47,6 +47,8 @@ to ticket definition — the ADR must be merged first.
 
 **Copilot (VS Code):** reference `.github/prompts/skills/system-designer.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/system-designer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [PRD Writer](../prd-writer/) — previous stage

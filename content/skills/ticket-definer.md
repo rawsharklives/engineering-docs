@@ -46,6 +46,8 @@ assignment should happen until the engineer has reviewed all Issues.
 
 **Copilot (VS Code):** reference `.github/prompts/skills/ticket-definer.prompt.md`
 
+**Canonical source:** `.claude/prompts/skills/ticket-definer/SKILL.md` in rawsharklives/engineering-docs (agentskills.io format)
+
 ## Related
 
 - [System Designer](../system-designer/) — previous stage
