@@ -36,6 +36,13 @@ For the complete workflow with stage gates and gate mechanisms, see
 
 ## Getting started
 
-Run `/setup-skills-local` once to install the `/setup-skills` command globally. Then open
-Claude Code in any service repo and run `/setup-skills` to install all skill commands into
-that repo. Commit the resulting files so the Copilot cloud agent can also use them.
+**Claude Code:** run `/setup-skills-local` once to install the `/setup-skills` command
+globally, then run `/setup-skills` in any service repo to install all skill commands.
+Commit the resulting files.
+
+**Copilot only:** in Copilot Chat, ask it to fetch and run
+`templates/copilot-prompts/setup-skills.prompt.md` from `rawsharklives/engineering-docs`.
+It will install the 7 Copilot skill files into `.github/prompts/skills/`. Commit the
+result.
+
+Full setup instructions are in the [onboarding guide](../onboarding/ai-skills/).

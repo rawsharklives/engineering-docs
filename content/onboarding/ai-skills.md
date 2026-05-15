@@ -20,25 +20,19 @@ For the design decisions behind this, see [ADR-002: AI Skills Layer](../adr/plat
 
 ---
 
-## One-time global setup
+## Setup: Claude Code users
 
-Run this once on any machine. It installs the `/setup-skills` command globally so you can
-install skills into any service repo.
-
-In Claude Code, run:
+**Step 1 — one-time global setup** (once per machine):
 
 ```
 /setup-skills-local
 ```
 
-This fetches the `/setup-skills` command from `engineering-docs` and installs it in
-`~/.claude/commands/`.
+This installs `/setup-skills` into `~/.claude/commands/` so it's available in every repo.
 
----
+**Step 2 — per-repo setup:**
 
-## Per-repo setup
-
-Open Claude Code in your service repo and run:
+Open Claude Code in the service repo and run:
 
 ```
 /setup-skills
@@ -48,8 +42,22 @@ This installs:
 - `.claude/commands/skills/` — Claude Code slash commands for each skill
 - `.github/prompts/skills/` — Copilot prompt files for each skill
 
-Commit both directories to the repo. The Copilot cloud agent needs the prompt files
-committed locally to use them.
+Commit both directories. The Copilot cloud agent needs the prompt files committed locally.
+
+---
+
+## Setup: Copilot-only users
+
+No Claude Code required. In Copilot Chat, reference the setup prompt from
+`engineering-docs` directly:
+
+> "Using the GitHub MCP server, fetch `templates/copilot-prompts/setup-skills.prompt.md`
+> from rawsharklives/engineering-docs (ref: main) and follow the instructions in it."
+
+Copilot will fetch and write all 7 skill files to `.github/prompts/skills/` in the
+current repo. Commit the result — done.
+
+Re-run this whenever you want to pick up updates from `engineering-docs`.
 
 ---
 
@@ -115,8 +123,8 @@ for the `AGENTS.md` format.
 canonical prompt from engineering-docs at each invocation. No action needed.
 
 **Copilot prompt files** are committed locally and will go stale when engineering-docs
-updates the canonical prompts. Re-run `/setup-skills` periodically and commit the updated
-files to pick up the latest versions.
+updates the canonical prompts. Re-run `/setup-skills` (Claude Code) or the Copilot-only
+setup prompt and commit the updated files to pick up the latest versions.
 
 ---
 
