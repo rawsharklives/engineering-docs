@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Platform Engineering ADRs on Engineering Docs</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/</link><description>Recent content in Platform Engineering ADRs on Engineering Docs</description><generator>Hugo</generator><language>en-gb</language><atom:link href="https://rawsharklives.github.io/engineering-docs/adr/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>ADR-001 Addendum A — GitHub Copilot + GHEC Variant</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-a-copilot-ghec-variant/</link><pubDate>Tue, 21 Apr 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-a-copilot-ghec-variant/</guid><description>&lt;h2 id="purpose"&gt;Purpose&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Platform Engineering ADRs on Engineering Docs</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/</link><description>Recent content in Platform Engineering ADRs on Engineering Docs</description><generator>Hugo</generator><language>en-gb</language><atom:link href="https://rawsharklives.github.io/engineering-docs/adr/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>Addendum C: AI-Assisted Feature Workflow</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-c-feature-workflow/</link><pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-c-feature-workflow/</guid><description>&lt;h1 id="addendum-c-ai-assisted-feature-workflow"&gt;Addendum C: AI-Assisted Feature Workflow&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Status&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Proposed&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2026-05-15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Relates to&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="../adr-001-engineering-documentation-platform/"&gt;ADR-001&lt;/a&gt;, &lt;a href="../adr-002-ai-skills-layer/"&gt;ADR-002&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="purpose"&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;This addendum documents the complete AI-assisted feature workflow built on the skills layer
+introduced in ADR-002. It describes stage-by-stage inputs, outputs, gate mechanisms, and
+the role of the Copilot cloud agent in autonomous implementation.&lt;/p&gt;
+&lt;p&gt;The workflow is a process, not a pipeline. There is no CI enforcement between stages. The
+engineer is the orchestrator — each stage gate is the engineer&amp;rsquo;s intentional decision to
+invoke the next skill.&lt;/p&gt;</description></item><item><title>ADR-002: AI Skills Layer</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/adr-002-ai-skills-layer/</link><pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/platform/adr-002-ai-skills-layer/</guid><description>&lt;h1 id="adr-002-ai-skills-layer"&gt;ADR-002: AI Skills Layer&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Status&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Proposed&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2026-05-15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Author&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Rich&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Reviewers&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Platform&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="context"&gt;Context&lt;/h2&gt;
+&lt;p&gt;ADR-001 established a passive knowledge base: documentation stored in Git, retrieved by AI
+via MCP, and rendered for humans via Hugo. It defines how engineers and AI agents find and
+consume knowledge — but it does not define how AI should behave during the software
+development lifecycle itself.&lt;/p&gt;
+&lt;p&gt;In practice, teams are reaching for AI ad-hoc at each stage of feature development: writing
+PRDs in one chat session, doing system design in another, breaking work into tickets in a
+third. There is no shared prompt quality bar, no consistency across teams, no stage gate
+that ensures one stage&amp;rsquo;s output is ready before the next begins, and no single place to
+update how the AI should behave when the process evolves.&lt;/p&gt;</description></item><item><title>ADR-001 Addendum A — GitHub Copilot + GHEC Variant</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-a-copilot-ghec-variant/</link><pubDate>Tue, 21 Apr 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-a-copilot-ghec-variant/</guid><description>&lt;h2 id="purpose"&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;The core ADR presumes Claude Code as the AI runtime on engineer machines, with Anthropic&amp;rsquo;s GitHub MCP server as the bridge to &lt;code&gt;engineering-docs&lt;/code&gt;. This addendum documents what changes when the AI runtime is GitHub Copilot (CLI, IDE, and cloud agent) — &lt;strong&gt;the same GHEC repository, site, and content remain&lt;/strong&gt;; only the engineer-facing AI layer, custom-instructions format, and auth plumbing change.&lt;/p&gt;
 &lt;p&gt;This is viable today because Copilot now supports Anthropic&amp;rsquo;s Claude models natively — administrator-enabled via Copilot policy, no separate Anthropic billing, no BYO API key required at the user level. The underlying intelligence for &lt;code&gt;/docs&lt;/code&gt;-style workflows is therefore unchanged; only the host wrapping it differs.&lt;/p&gt;</description></item><item><title>ADR-001 Addendum B — Scaling the Documentation MCP</title><link>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-b-mcp-scaling/</link><pubDate>Tue, 21 Apr 2026 00:00:00 +0000</pubDate><guid>https://rawsharklives.github.io/engineering-docs/adr/platform/addendum-b-mcp-scaling/</guid><description>&lt;h2 id="purpose"&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;The core ADR&amp;rsquo;s MCP integration treats &lt;code&gt;engineering-docs&lt;/code&gt; as a repository the AI browses on demand. That is the right starting point at tens-to-low-hundreds of pages. This addendum examines what happens as the docs store grows to thousands of pages, identifies the specific bottlenecks that appear before it does, and sets out a staged progression toward semantic retrieval.&lt;/p&gt;
